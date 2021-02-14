@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# 맛집지도 프로젝트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+// package 설치
+npm install
 
-## Available Scripts
+// create-react-app 시작
+npm start
+```
 
-In the project directory, you can run:
+### 1) Auth(안증: 회원가입 / 로그인)
+- [ ] 구글 FireBase Auth를 통한 인증 제작
+- [ ] 이메일 & 비밀번호로 인증(기본값) / 구글 인증
 
-### `yarn start`
+### 2) 맛집 리스트
+- [ ] 구글 FireBase FireStore를 통한 게시판 제작
+- [ ] 인스타그램처럼 나열식, 첫 랜더링 시 조회(5개)
+- [ ] 내가 쓴 글만 수정,삭제 가능
+- [ ] 사진 최대 4개 등록(Swiper.js), 1개일 땐 Swiper 활성화X
+- [ ] 후기작성
+- [ ] 해시태그 추가 (ex. #매워)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 3) 지도
+- [ ] 카카오 지도 사용
+- [ ] 지도안에 맛집 picker 심어주기
+- [ ] 카카오 지도검색: 맛집 위경도 저장, 지역 맛집 검색
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 4) React 설계
+- [ ] styled-components 사용
+- [ ] react-router-dom로 라우팅
+- [ ] index, container, representer 디자인패턴 사용
+- [ ] 리덕스를 통한 로그인 유저정보 전역관리
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 5) 폴더 구조
+- Apis : firebase, 카카오지도 APIs 관리
+- Modules : 리덕스를 통한 전역상태 관리
+- Routes : 라우팅되는 컴포넌트 관리
+- Components : 그밖에 컴포넌트 관리
+- Utils : 자주쓰는 함수모음
