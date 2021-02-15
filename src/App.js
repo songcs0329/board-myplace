@@ -1,12 +1,13 @@
-import { authService } from "./Apis/fBase";
+import { GlobalStyles } from "./GlobalStyles";
+import Router from "./Routes/Router";
 
 
 function App() {
-  console.log(authService)
   return (
-    <div className="App">
-      App
-    </div>
+    <>
+      <GlobalStyles />
+      <Router />
+    </>
   );
 }
 

@@ -28,7 +28,7 @@ npm start
 ### 4) React 설계
 - [ ] styled-components 사용
 - [ ] react-router-dom로 라우팅
-- [ ] index, container, representer 디자인패턴 사용
+- [ ] index, container, presenter 디자인패턴 사용
 - [ ] 리덕스를 통한 로그인 유저정보 전역관리
 
 ### 5) 폴더 구조
