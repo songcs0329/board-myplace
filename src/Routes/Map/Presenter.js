@@ -1,10 +1,11 @@
 import React from 'react';
+import { MapStyles } from './MapStyles';
 
 const Presenter = () => {
   return (
-    <div>
-      MapPresenter
-    </div>
+    <MapStyles>
+      <div id="map"></div>
+    </MapStyles>
   );
 };
 

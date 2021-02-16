@@ -5,13 +5,15 @@ import {
   Route,
 } from "react-router-dom";
 import Auth from './Auth';
-import Map from './Map/Presenter';
+import Map from './Map';
 import Nav from './Nav';
-import { ContentsWrap } from 'GlobalStyles'
 import { loginUser, logoutUser } from 'reducers/user';
 import { connect } from 'react-redux';
 import { fBaseAuth } from 'Apis/fBase';
 import { Loading } from 'Components/default';
+import BoardWrite from './Boards/Write';
+import BoardsList from './Boards/List';
+import BoardDetail from './Boards/Detail';
 
 const Router = (props) => {
   const [init, setInit] = useState(false)
@@ -40,12 +42,24 @@ const Router = (props) => {
             {
               Boolean(user)
               ?
-              <ContentsWrap>
+              <>
                 <Nav user={user} />
-                <Route path="/" exact={true}>
+                <Route path={`/`} exact>
                   <Map user={user} />
                 </Route>
-              </ContentsWrap>
+                <Route path={`/boards`} exact>
+                  <BoardsList />
+                </Route>
+                <Route path={`/boards/:id`}>
+                  <BoardDetail />
+                </Route>
+                <Route path={`/boards/write`}>
+                  <BoardWrite />
+                </Route>
+                <Route path={`/boards/update/:id`}>
+                  <BoardWrite />
+                </Route>
+              </>
               :
               <Auth />
             }
@@ -58,6 +72,7 @@ const Router = (props) => {
 
 const mapStateToProps = state => ({
   user: state.user.userinfo,
+  boards: state.boards.boardsList
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -68,4 +83,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Router);
+)(Router)

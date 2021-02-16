@@ -36,11 +36,13 @@ export const Container = () => {
       case "google":
         provider = new fBaseInstance.auth.GoogleAuthProvider()
         break
+      case "facebook":
+        alert("준비중입니다.")
+        return
       default:
         return
     }
 
-    console.log(provider)
     await fBaseAuth.signInWithPopup(provider)
   }
 

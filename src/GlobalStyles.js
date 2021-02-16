@@ -35,11 +35,31 @@ export const GlobalStyles = createGlobalStyle`
   li {
     list-style: none;
   }
+  .errorTxt {
+    font-family: 'Roboto';
+    letter-spacing: 0.5px;
+    color: #ea4335;
+  }
 `
 
-export const ContentsWrap = styled.div`
-  border:1px solid #000;
-  position: relative;
+export const FormInput = styled.div`
+  input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    letter-spacing: 1px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 8px;
+    &.formInput {
+      border: 1px solid #ccc;
+    }
+    &.formSubmit {
+      color: #fff;
+      background-color: #333;
+    }
+  }
 `
 
 const loadingSpin = keyframes`

@@ -10,55 +10,45 @@ export const AuthStyles = styled.div`
 
 export const AuthWrap = styled.div`
   min-width: 320px;
-  text-align: center;
   > svg {
     margin-bottom: 30px;
     color: #222;
   }
-  .authError {
-    font-family: 'Roboto';
-    letter-spacing: 0.5px;
-    color: #ea4335;
-  }
-`
-
-export const AuthInput = styled.div`
-  margin-bottom: 15px;
-  input {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    letter-spacing: 1px;
-    font-family: 'Roboto';
-    font-weight: 500;
-    font-size: 16px;
-    border-radius: 8px;
-    &.authInput {
-      border: 1px solid #ccc;
-    }
-    &.authSubmit {
-      color: #fff;
-      background-color: #333;
+  text-align: center;
+  form {
+    padding: 0 5px;
+    > * {
+      margin-bottom: 15px;
     }
   }
 `
 
 export const AuthBtnList = styled.ul`
+  overflow: hidden;
   margin-top: 15px;
   padding-top: 30px;
   border-top: 1px solid #ccc;
   li {
-    & + li {
-      margin-top: 15px;
-    }
+    float: left;
+    width: 50%;
+    padding: 5px;
     &:first-child {
+      width: 100%;
       button {
         background-color: #4285f4;
       }
     }
     &:last-child {
       button {
+        
+      }
+    }
+    .social {
+      &.google {
         background-color: #ea4335;
+      }
+      &.facebook {
+        background-color: #29487d;
       }
     }
   }

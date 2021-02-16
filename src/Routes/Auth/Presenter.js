@@ -1,8 +1,9 @@
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faUser, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FormInput } from 'GlobalStyles';
 import React from 'react';
-import { AuthStyles, AuthWrap, AuthInput, AuthBtnList } from './AuthStyles';
+import { AuthWrap, AuthBtnList, AuthStyles } from './AuthStyles';
 
 const Presenter = ({ isAuth, error, userInfo, handleAuth, handleChange, handleSubmit, handleSocialClick }) => {
   const { email, password } = userInfo
@@ -11,38 +12,38 @@ const Presenter = ({ isAuth, error, userInfo, handleAuth, handleChange, handleSu
       <AuthWrap>
         <FontAwesomeIcon icon={faUtensils} size="3x"/>
         <form onSubmit={handleSubmit}>
-          <AuthInput>
+          <FormInput>
             <input
               type="email"
               name="email"
               placeholder="Email"
               value={email}
               onChange={handleChange}
-              className="authInput"
+              className="formInput"
               required
             />
-          </AuthInput>
-          <AuthInput>
+          </FormInput>
+          <FormInput>
             <input
               type="password"
               name="password"
               placeholder="Password"
               value={password}
               onChange={handleChange}
-              className="authInput"
+              className="formInput"
               required
             />
-          </AuthInput>
-          <AuthInput>
+          </FormInput>
+          <FormInput>
             <input
               type="submit"
-              className="authSubmit"
-              value="Join in"
+              className="formSubmit"
+              value="Join"
               onSubmit={handleSubmit}
             />
-          </AuthInput>
+          </FormInput>
         </form>
-        {error && <span className="authError">{error}</span>}
+        {error && <span className="errorTxt">{error}</span>}
       <AuthBtnList>
         <li>
           <button onClick={handleAuth}>
@@ -57,9 +58,23 @@ const Presenter = ({ isAuth, error, userInfo, handleAuth, handleChange, handleSu
           </button>
         </li>
         <li>
-          <button name="google" onClick={handleSocialClick}>
+          <button
+            name="google"
+            onClick={handleSocialClick}
+            className="social google"
+          >
             <FontAwesomeIcon icon={faGoogle} />
-            With Google
+            Google
+          </button>
+        </li>
+        <li>
+          <button
+            name="facebook"
+            onClick={handleSocialClick}
+            className="social facebook"
+          >
+            <FontAwesomeIcon icon={faFacebookF} />
+            facebook
           </button>
         </li>
       </AuthBtnList>

@@ -9,10 +9,10 @@ const Presenter = ({userEmail, Link, handleLogOut}) => {
       <h1><FontAwesomeIcon icon={faUser} />{userEmail}</h1>
       <NavList>
         <li>
-          <Link to="/">지도보기</Link>
+          <Link to="/">MAP</Link>
         </li>
         <li>
-          <Link to="/Write">글쓰기</Link>
+          <Link to="/boards">BOARD</Link>
         </li>
       </NavList>
       <button className="logout" onClick={handleLogOut}>LOGOUT</button>
