@@ -14,6 +14,7 @@ import { Loading } from 'Components/default';
 import BoardWrite from './Boards/Write';
 import BoardsList from './Boards/List';
 import BoardDetail from './Boards/Detail';
+import { ContentWrap } from 'GlobalStyles';
 
 const Router = (props) => {
   const [init, setInit] = useState(false)
@@ -42,24 +43,24 @@ const Router = (props) => {
             {
               Boolean(user)
               ?
-              <>
+              <ContentWrap>
                 <Nav user={user} />
                 <Route path={`/`} exact>
                   <Map user={user} />
                 </Route>
-                <Route path={`/boards`} exact>
-                  <BoardsList />
+                <Route path="/write">
+                  <BoardWrite />
                 </Route>
-                <Route path={`/boards/:id`}>
+                <Route path="/update/:id">
+                  <BoardWrite />
+                </Route>
+                <Route path="/boards/:id">
                   <BoardDetail />
                 </Route>
-                <Route path={`/boards/write`}>
-                  <BoardWrite />
+                <Route path="/boards">
+                  <BoardsList />
                 </Route>
-                <Route path={`/boards/update/:id`}>
-                  <BoardWrite />
-                </Route>
-              </>
+              </ContentWrap>
               :
               <Auth />
             }

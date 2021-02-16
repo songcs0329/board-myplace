@@ -2,7 +2,10 @@ import styled from 'styled-components'
 
 export const NavStyles = styled.nav`
   overflow: hidden;
+  width: 100%;
   padding: 10px 20px;
+  position: fixed;
+  top: 0;
   background-color: #333;
   color: #fff;
   font-size: 0;

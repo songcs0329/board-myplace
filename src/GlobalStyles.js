@@ -40,10 +40,22 @@ export const GlobalStyles = createGlobalStyle`
     letter-spacing: 0.5px;
     color: #ea4335;
   }
+  .hide {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -9999px;
+    text-indent: -9999px;
+    font-size: 0;
+  }
+`
+export const ContentWrap = styled.div`
+  padding-top:54px;
 `
 
 export const FormInput = styled.div`
-  input {
+  input,
+  textarea {
     display: block;
     width: 100%;
     padding: 10px;
@@ -52,6 +64,7 @@ export const FormInput = styled.div`
     font-weight: 500;
     font-size: 16px;
     border-radius: 8px;
+    resize: none;
     &.formInput {
       border: 1px solid #ccc;
     }
