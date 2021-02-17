@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import Presenter from './Presenter';
 
-export const Container = ({user}) => {
+const Container = ({user}) => {
   const handleLogOut = () => {
     fBaseAuth.signOut()
   }
@@ -17,3 +17,5 @@ export const Container = ({user}) => {
     />
   );
 };
+
+export default Container

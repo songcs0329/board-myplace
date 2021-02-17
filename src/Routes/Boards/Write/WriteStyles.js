@@ -10,14 +10,32 @@ export const WriteWrap = styled.div`
   border:1px solid blue;
   width: 100%;
   padding: 50px;
+  * {
+    color: #333;
+  }
   > svg {
     margin-bottom: 20px;
+  }
+  form {
+    > div {
+      margin-top: 20px;
+    }
+    &.formAddress {
+      > div {
+        display: inline-block;
+        width: 100px;
+        vertical-align: middle;
+        margin-top: 0;
+        &:first-child {
+          width: calc(100% - 100px);
+        }
+      }
+    }
   }
 `
 
 export const ImgFilesWrap = styled.div`
   overflow: hidden;
-  margin-bottom: 20px;
   font-size: 0;
   > * {
     display: inline-block;
@@ -67,6 +85,7 @@ export const WriteFileUl = styled.ul`
 export const WriteFileLi = styled.li`
   width: 100%;
   height: 100%;
+  border: 1px solid #ddd;
   .img {
     overflow: hidden;
     display: block;

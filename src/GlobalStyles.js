@@ -59,18 +59,18 @@ export const FormInput = styled.div`
     display: block;
     width: 100%;
     padding: 10px;
-    letter-spacing: 1px;
-    font-family: 'Roboto';
-    font-weight: 500;
     font-size: 16px;
-    border-radius: 8px;
+    border: 1px solid #ccc;
     resize: none;
-    &.formInput {
-      border: 1px solid #ccc;
+    &:focus {
+      border-color: #333;
     }
     &.formSubmit {
       color: #fff;
       background-color: #333;
+      border-color: #333;
+      letter-spacing: 0.5px;
+      font-weight: 500;
     }
   }
 `

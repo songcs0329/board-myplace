@@ -1,2 +1,2 @@
-import { Container as BoardsList } from './Container'
-export default BoardsList
+import Container from './Container'
+export default Container

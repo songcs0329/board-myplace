@@ -1,2 +1,2 @@
-import { Container as BoardWrite } from './Container'
-export default BoardWrite
+import connect from './Container'
+export default connect

@@ -1,2 +1,2 @@
-import { Container as Nav } from './Container'
-export default Nav
+import Container from './Container'
+export default Container

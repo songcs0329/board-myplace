@@ -26,7 +26,6 @@ export const BoardWriteBtn = styled.span`
   border-radius: 50%;
   background-color: #4285f4;
   color: #fff;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -37,5 +36,10 @@ export const BoardWriteBtn = styled.span`
     height: 100%;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+    }
   }
 `

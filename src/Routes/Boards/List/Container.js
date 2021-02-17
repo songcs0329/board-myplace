@@ -2,7 +2,7 @@ import React from 'react';
 import Presenter from './Presenter';
 import { Link } from 'react-router-dom'
 
-export const Container = () => {
+const Container = () => {
 
   return (
     <Presenter
@@ -10,3 +10,5 @@ export const Container = () => {
     />
   );
 };
+
+export default Container

@@ -1,2 +1,2 @@
-import { Container as Map } from './Container'
-export default Map
+import Container from './Container'
+export default Container

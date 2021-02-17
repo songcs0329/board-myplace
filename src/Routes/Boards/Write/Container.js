@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Presenter from './Presenter';
 
-export const Container = () => {
+const Container = () => {
   const [boardWrite, setBoardWrite] = useState({
     writeUer: "",
     writeAt: "",
+    title: "",
+    address: "",
     desc: "",
     imgFiles: []
   })
-  const { desc, imgFiles } = boardWrite;
 
   const handleChange = e => {
     setBoardWrite({
@@ -41,10 +43,17 @@ export const Container = () => {
 
   return (
     <Presenter
-      desc={desc}
-      imgFiles={imgFiles}
+      boardWrite={boardWrite}
       handleChange={handleChange}
       onFilesChange={onFilesChange}
     />
   );
 };
+
+const mapStateToProps = state => ({
+  user: state.user.userinfo,
+})
+
+export default connect(
+  mapStateToProps
+)(Container)

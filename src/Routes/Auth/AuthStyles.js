@@ -6,6 +6,12 @@ export const AuthStyles = styled.div`
   height: 100vh;
   align-items: center;
   justify-content: center;
+  input,
+  textarea {
+    letter-spacing: 1px;
+    font-family: 'Roboto';
+    font-weight: 500;
+  }
 `
 
 export const AuthWrap = styled.div`
@@ -60,7 +66,6 @@ export const AuthBtnList = styled.ul`
     font-family: 'Roboto';
     font-weight: 500;
     font-size: 16px;
-    border-radius: 8px;
     color: #fff;
     > svg {
       margin-right: 5px;
