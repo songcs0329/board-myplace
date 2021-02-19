@@ -12,7 +12,7 @@ const Presenter = ({userEmail, Link, handleLogOut}) => {
           <Link to="/">MAP</Link>
         </li>
         <li>
-          <Link to="/boards">BOARD</Link>
+          <Link to="/write">WRITE</Link>
         </li>
       </NavList>
       <button className="logout" onClick={handleLogOut}>LOGOUT</button>

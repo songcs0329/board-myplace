@@ -1,19 +1,26 @@
+import { mapRender } from "Apis/kakao"
+
 // action types
-export const GET_MAPOBJECT = "map/GET_MAPOBJECT"
-export const GET_SEARCH_PLACELIST = "map/GET_SEARCH_PLACELIST"
+const GET_MAPOBJECT = "map/GET_MAPOBJECT"
+const GET_MAPBOARDS = "map/GET_MAPBOARDS"
+
 
 // action
-export const getMapObject = (mapObj) => {
+export const getMapObject = (posX, posY) => {
+  const mapObject = mapRender(posX, posY)
+  console.log(mapObject)
+
   return {
     type: GET_MAPOBJECT,
-    mapObj
+    mapObject
   }
 }
 
-export const getSearchPlaceList = (keywordResult) => {
+export const getMapBoards = () => {
+  const mapBoards = []
   return {
-    type: GET_SEARCH_PLACELIST,
-    keywordResult
+    type: GET_MAPBOARDS,
+    mapBoards
   }
 }
 
@@ -21,7 +28,20 @@ export const getSearchPlaceList = (keywordResult) => {
 // initialState
 export const initialState = {
   mapObject: null,
-  placeList: null
+  mapBoards: [
+    {
+      id: 0,
+      name: "확인",
+    },
+    {
+      id: 1,
+      name: "철수",
+    },
+    {
+      id: 2,
+      name: "영희",
+    }
+  ]
 }
 
 // reducer
@@ -30,12 +50,12 @@ const reducer = (state = initialState, action) => {
     case GET_MAPOBJECT:
       return {
         ...state,
-        mapObject: action.mapObj
+        mapObject: action.mapObject
       }
-    case GET_SEARCH_PLACELIST:
+    case GET_MAPBOARDS:
       return {
         ...state,
-        placeList: action.keywordResult
+        mapBoard: action.mapBoards
       }
     default:
       return state

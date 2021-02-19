@@ -1,7 +1,7 @@
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faUser, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormInput } from 'GlobalStyles';
+import { FormInput, FormSubmitBtn, FormVertical } from 'GlobalStyles';
 import React from 'react';
 import { AuthWrap, AuthBtnList, AuthStyles } from './AuthStyles';
 
@@ -11,7 +11,7 @@ const Presenter = ({ isAuth, error, userInfo, handleAuth, handleChange, handleSu
     <AuthStyles>
       <AuthWrap>
         <FontAwesomeIcon icon={faUtensils} size="3x"/>
-        <form onSubmit={handleSubmit}>
+        <FormVertical onSubmit={handleSubmit}>
           <FormInput>
             <input
               type="email"
@@ -34,15 +34,15 @@ const Presenter = ({ isAuth, error, userInfo, handleAuth, handleChange, handleSu
               required
             />
           </FormInput>
-          <FormInput>
-            <input
+          <FormSubmitBtn>
+            <button
               type="submit"
-              className="formSubmit"
-              value="Join"
               onSubmit={handleSubmit}
-            />
-          </FormInput>
-        </form>
+            >
+              Join
+            </button>
+          </FormSubmitBtn>
+        </FormVertical>
         {error && <span className="errorTxt">{error}</span>}
       <AuthBtnList>
         <li>
@@ -74,7 +74,7 @@ const Presenter = ({ isAuth, error, userInfo, handleAuth, handleChange, handleSu
             className="social facebook"
           >
             <FontAwesomeIcon icon={faFacebookF} />
-            facebook
+            Facebook
           </button>
         </li>
       </AuthBtnList>

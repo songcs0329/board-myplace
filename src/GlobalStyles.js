@@ -9,6 +9,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family:'Noto Sans KR', 'Roboto', sans-serif;
     letter-spacing: -1px;
     line-height: 1.3;
+    color: #222;
   }
   body{
     font-family:'Noto Sans KR', 'Roboto', sans-serif;
@@ -31,14 +32,14 @@ export const GlobalStyles = createGlobalStyle`
     color:inherit;
     line-height: 1.3;
   }
+  input,
+  textarea {
+    border: 0;
+    outline: none;
+  }
   ul,
   li {
     list-style: none;
-  }
-  .errorTxt {
-    font-family: 'Roboto';
-    letter-spacing: 0.5px;
-    color: #ea4335;
   }
   .hide {
     width: 0;
@@ -51,6 +52,30 @@ export const GlobalStyles = createGlobalStyle`
 `
 export const ContentWrap = styled.div`
   padding-top:54px;
+`
+
+export const FormVertical = styled.form`
+  width:100%;
+  > div {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+`
+
+export const FormHorizontal = styled.form`
+  width:100%;
+  > div {
+    display: inline-block;
+    vertical-align: middle;
+    &:first-child {
+      width: calc(100% - 60px);
+    }
+    &:last-child {
+      width: 60px;
+    }
+  }
 `
 
 export const FormInput = styled.div`
@@ -72,6 +97,22 @@ export const FormInput = styled.div`
       letter-spacing: 0.5px;
       font-weight: 500;
     }
+  }
+`
+export const FormSubmitBtn = styled.div`
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #333;
+    border: 1px solid #333;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  * {
+    color: inherit;
   }
 `
 

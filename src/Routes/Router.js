@@ -11,9 +11,8 @@ import { loginUser, logoutUser } from 'reducers/user';
 import { connect } from 'react-redux';
 import { fBaseAuth } from 'Apis/fBase';
 import { Loading } from 'Components/default';
-import BoardWrite from './Boards/Write';
-import BoardsList from './Boards/List';
-import BoardDetail from './Boards/Detail';
+import BoardWrite from './BoardWrite';
+import BoardDetail from './BoardDetail';
 import { ContentWrap } from 'GlobalStyles';
 
 const Router = (props) => {
@@ -57,9 +56,6 @@ const Router = (props) => {
                 <Route path="/boards/:id">
                   <BoardDetail />
                 </Route>
-                <Route path="/boards">
-                  <BoardsList />
-                </Route>
               </ContentWrap>
               :
               <Auth />
@@ -73,7 +69,6 @@ const Router = (props) => {
 
 const mapStateToProps = state => ({
   user: state.user.userinfo,
-  boards: state.boards.boardsList
 })
 
 const mapDispatchToProps = dispatch => ({

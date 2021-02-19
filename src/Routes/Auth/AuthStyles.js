@@ -18,7 +18,6 @@ export const AuthWrap = styled.div`
   min-width: 320px;
   > svg {
     margin-bottom: 30px;
-    color: #222;
   }
   text-align: center;
   form {
@@ -26,6 +25,13 @@ export const AuthWrap = styled.div`
     > * {
       margin-bottom: 15px;
     }
+  }
+  .errorTxt {
+    display: block;
+    margin-top: 15px;
+    font-family: 'Roboto';
+    letter-spacing: 0.5px;
+    color: #ea4335;
   }
 `
 
@@ -41,12 +47,7 @@ export const AuthBtnList = styled.ul`
     &:first-child {
       width: 100%;
       button {
-        background-color: #4285f4;
-      }
-    }
-    &:last-child {
-      button {
-        
+        background-color: #F5dF4D;
       }
     }
     .social {
@@ -54,7 +55,7 @@ export const AuthBtnList = styled.ul`
         background-color: #ea4335;
       }
       &.facebook {
-        background-color: #29487d;
+        background-color: #0084FF;
       }
     }
   }
@@ -66,10 +67,10 @@ export const AuthBtnList = styled.ul`
     font-family: 'Roboto';
     font-weight: 500;
     font-size: 16px;
-    color: #fff;
-    > svg {
+    svg {
       margin-right: 5px;
       vertical-align: middle;
+      color: #fff;
     }
   }
 `

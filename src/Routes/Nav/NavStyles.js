@@ -6,8 +6,7 @@ export const NavStyles = styled.nav`
   padding: 10px 20px;
   position: fixed;
   top: 0;
-  background-color: #333;
-  color: #fff;
+  background-color: #F5dF4D;
   font-size: 0;
   z-index: 200;
   * {

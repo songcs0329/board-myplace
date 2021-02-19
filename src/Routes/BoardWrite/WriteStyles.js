@@ -7,45 +7,24 @@ export const WriteStyles = styled.div`
 `
 
 export const WriteWrap = styled.div`
-  border:1px solid blue;
-  width: 100%;
-  padding: 50px;
-  * {
-    color: #333;
-  }
-  > svg {
-    margin-bottom: 20px;
-  }
-  form {
-    > div {
-      margin-top: 20px;
-    }
-    &.formAddress {
-      > div {
-        display: inline-block;
-        width: 100px;
-        vertical-align: middle;
-        margin-top: 0;
-        &:first-child {
-          width: calc(100% - 100px);
-        }
-      }
-    }
+  min-width: 320px;
+  margin-top: 40px;
+  text-align: center;
+  > form {
+    margin-top: 15px;
   }
 `
 
 export const ImgFilesWrap = styled.div`
   overflow: hidden;
   font-size: 0;
-  > * {
-    display: inline-block;
-    vertical-align: top;
-  }
+  text-align: left;
 `
 
 export const ImgFilesSubmit = styled.span`
-  width: 120px;
-  height: 120px;
+  display: block;
+  width: 100px;
+  height: 100px;
   label {
     display: block;
     width: 100%;
@@ -72,13 +51,17 @@ export const ImgFilesSubmit = styled.span`
 `
 
 export const WriteFileUl = styled.ul`
+  margin-top: 15px;
   font-size: 0;
   > li {
     display: inline-block;
     vertical-align: top;
-    width: 120px;
-    height: 120px;
-    margin-left: 15px;
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+    &:first-child {
+      margin-left: 0;
+    }
   }
 `
 

@@ -1,12 +1,12 @@
 import { fBaseAuth } from "Apis/fBase";
-import {
-  Link
-} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Presenter from './Presenter';
 
 const Container = ({user}) => {
+  const history = useHistory()
   const handleLogOut = () => {
     fBaseAuth.signOut()
+    history.push("/")
   }
 
   return (

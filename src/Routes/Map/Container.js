@@ -1,35 +1,50 @@
-import { mapRender, placeSearch } from 'Apis/kakao';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getMapObject, getSearchPlaceList } from 'reducers/map';
-import Presenter from './Presenter';
+import { getMapObject, getMapBoards } from 'reducers/map';
+import { MapContStyles, MapWrapStyles } from './MapStyles';
+import MapBoards from '../../Components/MapBoards';
+import MapSearch from '../../Components/MapSearch';
+import MapView from '../../Components/MapView';
 
 const Container = (props) => {
+  const { map } = props
   const [keyword, setKeyword] = useState("")
-  const { map, getMapObject, getSearchPlaceList } = props
-  const { mapObject, placeList } = map
+  const [keywordBoards, setKeywordBoards] = useState(null)
   
   useEffect(() => {
     const fetchKakaoMap = () => {
-      const kakaoMap = mapRender(37.506502, 127.053617)
-      getMapObject(kakaoMap)
+      getMapBoards()
+      getMapObject(37.506502, 127.053617)
     }
     fetchKakaoMap()
-  }, [getMapObject])
+  }, [])
 
   const changeKeyword = e => setKeyword(e.target.value)
-  const searchKeyword = (e) => {
+  const filterToKeyword = (e) => {
     e.preventDefault();
-    placeSearch(mapObject, keyword, getSearchPlaceList)
+    const filtered = map.mapBoards.filter((boardItem) => {
+      return boardItem === keyword && boardItem 
+    })
+    console.log(filtered)
+    setKeywordBoards(filtered)
   }
 
   return (
-    <Presenter
-      keyword={keyword}
-      // placeList={placeList}
-      changeKeyword={changeKeyword}
-      searchKeyword={searchKeyword}
-    />
+    <>
+      <MapWrapStyles>
+        <MapContStyles>
+          <MapSearch 
+            keyword={keyword}
+            changeKeyword={changeKeyword}
+            filterToKeyword={filterToKeyword}
+          />
+          <MapBoards
+            boardsList={!keywordBoards ? map.mapBoards : keywordBoards}
+          />
+        </MapContStyles>
+        <MapView />
+      </MapWrapStyles>
+    </>
   );
 };
 
@@ -38,8 +53,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getMapObject: (kakaoMap) => dispatch(getMapObject(kakaoMap)),
-  getSearchPlaceList: (keywordResult) => dispatch(getSearchPlaceList(keywordResult)),
+  getMapBoards: () => dispatch(getMapBoards()),
+  getMapObject: (posX, posY) => dispatch(getMapObject(posX, posY)),
 })
 
 export default connect(
