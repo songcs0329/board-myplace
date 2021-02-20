@@ -2,7 +2,7 @@ import { fBaseAuth } from "Apis/fBase";
 import { Link, useHistory } from "react-router-dom";
 import Presenter from './Presenter';
 
-const Container = ({user}) => {
+const Container = ({ userObject }) => {
   const history = useHistory()
   const handleLogOut = () => {
     fBaseAuth.signOut()
@@ -11,7 +11,7 @@ const Container = ({user}) => {
 
   return (
     <Presenter
-      userEmail={user.email}
+      userEmail={userObject.email}
       Link={Link}
       handleLogOut={handleLogOut}
     />

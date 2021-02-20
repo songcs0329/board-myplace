@@ -17,7 +17,7 @@ export const Container = () => {
       [e.target.name] : e.target.value
     })
   }
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     const {email, password} = userInfo
     try {
@@ -29,7 +29,7 @@ export const Container = () => {
       setError(error.message)
     }
   }
-  const handleSocialClick = async (e) => {
+  const handleSocialClick = async e => {
     const { name } = e.target
     let provider
     switch(name) {

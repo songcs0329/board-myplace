@@ -15,10 +15,43 @@ export const WriteWrap = styled.div`
   }
 `
 
+export const PlaceSearchWrap = styled.div`
+  width:100%;
+  > div {
+    display: inline-block;
+    vertical-align: middle;
+    &:first-child {
+      width: calc(100% - 60px);
+    }
+    &:last-child {
+      width: 60px;
+    }
+  }
+`
+export const SelectedOption = styled.strong `
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  text-align: left;
+  background-color: #F5dF4D;
+  > svg {
+    display: block;
+    margin-bottom: 5px;
+  }
+`
+
 export const ImgFilesWrap = styled.div`
   overflow: hidden;
   font-size: 0;
   text-align: left;
+  > label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 14px;
+  }
 `
 
 export const ImgFilesSubmit = styled.span`
@@ -50,7 +83,7 @@ export const ImgFilesSubmit = styled.span`
   }
 `
 
-export const WriteFileUl = styled.ul`
+export const ImgFileList = styled.ul`
   margin-top: 15px;
   font-size: 0;
   > li {
@@ -65,7 +98,7 @@ export const WriteFileUl = styled.ul`
   }
 `
 
-export const WriteFileLi = styled.li`
+export const ImgFileItem = styled.li`
   width: 100%;
   height: 100%;
   border: 1px solid #ddd;

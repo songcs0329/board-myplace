@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     letter-spacing: -1px;
     line-height: 1.3;
     color: #222;
+    word-break: break-all;
   }
   body{
     font-family:'Noto Sans KR', 'Roboto', sans-serif;
@@ -36,6 +37,14 @@ export const GlobalStyles = createGlobalStyle`
   textarea {
     border: 0;
     outline: none;
+  }
+  select {
+    appearance: none;
+    outline: none;
+    border-color: #ccc;
+    &:focus {
+      border-color: #222;
+    }
   }
   ul,
   li {
@@ -84,18 +93,11 @@ export const FormInput = styled.div`
     display: block;
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     border: 1px solid #ccc;
     resize: none;
     &:focus {
-      border-color: #333;
-    }
-    &.formSubmit {
-      color: #fff;
-      background-color: #333;
-      border-color: #333;
-      letter-spacing: 0.5px;
-      font-weight: 500;
+      border-color: #222;
     }
   }
 `
@@ -104,7 +106,7 @@ export const FormSubmitBtn = styled.div`
     display: block;
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     background-color: #333;
     border: 1px solid #333;
@@ -113,6 +115,32 @@ export const FormSubmitBtn = styled.div`
   }
   * {
     color: inherit;
+  }
+`
+
+export const FormSelect = styled.div`
+  width: 100%;
+  position: relative;
+  &:after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+    border-left: 1px solid #222;
+    border-bottom: 1px solid #222;
+    transform: rotate(-45deg);
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+  }
+  option {
+    width: 100%;
+    font-size: 14px;
   }
 `
 

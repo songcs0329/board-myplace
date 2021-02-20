@@ -1,7 +1,15 @@
 /* global kakao */
 import axios from 'axios'
 
-export const mapRender = (posX, posY) => {
+const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_KEY
+const Kakao = axios.create({
+  baseURL: "https://dapi.kakao.com", // 공통 요청 경로를 지정해준다.
+  headers: {
+    Authorization: `KakaoAK ${REST_API_KEY}` // 공통으로 요청 할 헤더
+  }
+})
+
+export const kakoMapRender = (posX, posY) => {
   let container = document.querySelector(".mapViewer")
   let options = {
     center: new kakao.maps.LatLng(posX, posY),
@@ -16,7 +24,7 @@ export const mapRender = (posX, posY) => {
   }
 }
 
-export const placeSearchFunc = (mapObject, keyword, fetchData) => {
+export const placeSearchFunc = (mapObject, keyword) => {
   const { map, ps } = mapObject
   ps.keywordSearch(keyword, placesSearchCB)
   
@@ -30,22 +38,12 @@ export const placeSearchFunc = (mapObject, keyword, fetchData) => {
       }    
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
       map.setBounds(bounds)
-      // map.setMaxLevel(5);
     }
-    
-    fetchData(data)
+    console.log(data)
   }
 }
 
-const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_KEY
-const Kakao = axios.create({
-  baseURL: "https://dapi.kakao.com", // 공통 요청 경로를 지정해준다.
-  headers: {
-    Authorization: `KakaoAK ${REST_API_KEY}` // 공통으로 요청 할 헤더
-  }
-})
-
-export const SearchQuery = async (query) => {
+export const SearchQuery = async query => {
   const params = {
     query,
     sort: "accuracy", // accuracy | recency 정확도 or 최신
@@ -53,7 +51,6 @@ export const SearchQuery = async (query) => {
     size: 10 // 한 페이지에 보여 질 문서의 개수
   }
 
-  const result = await Kakao.get("/v2/local/search/keyword", {params})
-  console.log(result.data)
-  return result.data
+  const searched = await Kakao.get("/v2/local/search/keyword", {params})
+  return searched.data
 }

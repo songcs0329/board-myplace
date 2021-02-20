@@ -1,15 +1,10 @@
-import { mapRender } from "Apis/kakao"
-
 // action types
 const GET_MAPOBJECT = "map/GET_MAPOBJECT"
 const GET_MAPBOARDS = "map/GET_MAPBOARDS"
 
 
 // action
-export const getMapObject = (posX, posY) => {
-  const mapObject = mapRender(posX, posY)
-  console.log(mapObject)
-
+export const getMapObject = (mapObject) => {
   return {
     type: GET_MAPOBJECT,
     mapObject
@@ -28,20 +23,7 @@ export const getMapBoards = () => {
 // initialState
 export const initialState = {
   mapObject: null,
-  mapBoards: [
-    {
-      id: 0,
-      name: "확인",
-    },
-    {
-      id: 1,
-      name: "철수",
-    },
-    {
-      id: 2,
-      name: "영희",
-    }
-  ]
+  mapBoards: null
 }
 
 // reducer

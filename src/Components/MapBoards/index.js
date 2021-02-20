@@ -5,6 +5,7 @@ const MapBoards = ({ boardsList }) => {
   return (
     <MapBoardsStyles>
       {
+        boardsList && 
         boardsList.map(board => <div key={board.id}>{board.name}</div>)
       }
     </MapBoardsStyles>

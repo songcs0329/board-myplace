@@ -1,40 +1,43 @@
 import React, { useState } from 'react';
-import { WriteStyles, WriteWrap } from './WriteStyles';
-import { faClipboard } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PlaceSearh from 'Components/PlaceSearh';
-import BoardForm from 'Components/BoardForm';
 import { SearchQuery } from 'Apis/kakao';
+import Presenter from './Presenter';
 
-const Container = () => {
+const Container = ({ userObject }) => {
   const [place, setPlace] = useState({
     search: "",
     options: null
   })
-  const [boardWrite, setBoardWrite] = useState({
-    writeUer: "",
-    writeAt: "",
-    title: "",
-    desc: "",
-    imgFiles: []
-  })
-
   const changePlace = e => {
     setPlace({
       ...place,
       [e.target.name]: e.target.value
     })
   }
-  const submitPlace = e => {
-    e.preventDefault()
-    SearchQuery(place.search)
-    console.log(place)
+  const submitPlace = async e => {
+    const searchData = await SearchQuery(place.search)
+    // console.log(searchData)
+    setPlace({
+      ...place,
+      options: searchData.documents
+    })
   }
 
+  const [boardWrite, setBoardWrite] = useState({
+    title: "",
+    desc: "",
+    address: null,
+    imgFiles: []
+  })
   const changeBoard = e => {
     setBoardWrite({
       ...boardWrite,
       [e.target.name] : e.target.value
+    })
+  }
+  const selectAdress = e => {
+    setBoardWrite({
+      ...boardWrite,
+      address: e.target.value
     })
   }
   const changeFiles = (e) => {
@@ -59,28 +62,29 @@ const Container = () => {
   }
   const submitBoard = (e) => {
     e.preventDefault()
-    console.log(boardWrite)
+    const { title, desc, address, imgFiles } = boardWrite
+    const boardObject = {
+      createdId: userObject.uid,
+      createdAt: Date.now(),
+      title,
+      desc,
+      address,
+      imgFiles
+    }
+    console.log(boardObject)
   }
 
   return (
-    <WriteStyles>
-      <WriteWrap>
-        <FontAwesomeIcon icon={faClipboard} size="3x"/>
-        <PlaceSearh 
-          search={place.search}
-          changePlace={changePlace}
-          submitPlace={submitPlace}
-        />
-        <BoardForm
-          title={boardWrite.title}
-          desc={boardWrite.desc}
-          imgFiles={boardWrite.imgFiles}
-          changeBoard={changeBoard}
-          changeFiles={changeFiles}
-          submitBoard={submitBoard}
-        />
-      </WriteWrap>
-    </WriteStyles>
+    <Presenter 
+      place={place}
+      changePlace={changePlace}
+      submitPlace={submitPlace}
+      boardWrite={boardWrite}
+      changeBoard={changeBoard}
+      selectAdress={selectAdress}
+      changeFiles={changeFiles}
+      submitBoard={submitBoard}
+    />
   );
 };
 

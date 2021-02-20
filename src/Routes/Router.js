@@ -17,7 +17,7 @@ import { ContentWrap } from 'GlobalStyles';
 
 const Router = (props) => {
   const [init, setInit] = useState(false)
-  const { user, loginUser, logoutUser } = props
+  const { userObject, loginUser, logoutUser } = props
   
   useEffect(() => {
     fBaseAuth.onAuthStateChanged(user => {
@@ -40,15 +40,15 @@ const Router = (props) => {
           :
           <>
             {
-              Boolean(user)
+              Boolean(userObject)
               ?
               <ContentWrap>
-                <Nav user={user} />
+                <Nav userObject={userObject} />
                 <Route path={`/`} exact>
-                  <Map user={user} />
+                  <Map userObject={userObject} />
                 </Route>
                 <Route path="/write">
-                  <BoardWrite />
+                  <BoardWrite userObject={userObject} />
                 </Route>
                 <Route path="/update/:id">
                   <BoardWrite />
@@ -68,7 +68,7 @@ const Router = (props) => {
 };
 
 const mapStateToProps = state => ({
-  user: state.user.userinfo,
+  userObject: state.user.userinfo,
 })
 
 const mapDispatchToProps = dispatch => ({
