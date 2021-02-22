@@ -4,7 +4,7 @@ import { WriteStyles, WriteWrap, PlaceSearchWrap, ImgFilesSubmit, ImgFilesWrap, 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faClipboard, faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const Presenter = ({ place, changePlace, submitPlace, boardWrite, changeBoard, selectAdress, changeFiles, submitBoard }) => {
+const Presenter = ({ place, changePlace, submitPlace, imgFiles, changeFiles, eraseFile, boardWrite, changeBoard, selectAdress, submitBoard }) => {
   return (
     <WriteStyles>
       <WriteWrap>
@@ -26,7 +26,8 @@ const Presenter = ({ place, changePlace, submitPlace, boardWrite, changeBoard, s
               type="text"
               name="desc"
               placeholder="내용을 입력해주세요."
-              rows="3"
+              rows="4"
+              maxLength="50"
               value={boardWrite.desc}
               onChange={changeBoard}
               className="formInput"
@@ -57,7 +58,7 @@ const Presenter = ({ place, changePlace, submitPlace, boardWrite, changeBoard, s
           {
             place.options &&
             <FormSelect>
-              <select onChange={selectAdress}>
+              <select onChange={selectAdress} required>
                 {
                   place.options.map((option, idx) => {
                     return (
@@ -90,8 +91,8 @@ const Presenter = ({ place, changePlace, submitPlace, boardWrite, changeBoard, s
             </ImgFilesSubmit>
             <ImgFileList>
               {
-                boardWrite.imgFiles.length > 0 &&
-                boardWrite.imgFiles.map((imgFile, idx) => {
+                imgFiles &&
+                imgFiles.map((imgFile, idx) => {
                   return (
                     <ImgFileItem key={idx}>
                       <span className="img">
@@ -100,6 +101,7 @@ const Presenter = ({ place, changePlace, submitPlace, boardWrite, changeBoard, s
                           alt=""
                         />
                       </span>
+                      <button className="erase" onClick={eraseFile} data-imgidx={idx}></button>
                     </ImgFileItem>
                   )
                 })

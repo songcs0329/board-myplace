@@ -101,6 +101,7 @@ export const ImgFileList = styled.ul`
 export const ImgFileItem = styled.li`
   width: 100%;
   height: 100%;
+  position:relative;
   border: 1px solid #ddd;
   .img {
     overflow: hidden;
@@ -111,6 +112,34 @@ export const ImgFileItem = styled.li`
       max-width: 100%;
       width: 100%;
       vertical-align: top;
+    }
+  }
+  .erase {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.8);
+    &:before,
+    &:after {
+      content: "";
+      display: block;
+      width: 10px;
+      height: 2px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -5px;
+      margin-top: -1px;
+      background-color: #fff;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
     }
   }
 `
