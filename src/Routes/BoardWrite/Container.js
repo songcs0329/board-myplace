@@ -1,8 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { SearchQuery } from 'Apis/kakao';
-import Presenter from './Presenter';
 import { fBaseDB, fBaseStorage } from 'Apis/fBase';
+import { useHistory } from 'react-router-dom';
+import BoardDesc from '../../Components/BoardDesc'
+import BoardPlace from '../../Components/BoardPlace'
+import BoardImages from '../../Components/BoardImages'
+import { WriteStyles, WriteWrap } from './WriteStyles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { FormSubmitBtn, FormVertical } from 'GlobalStyles';
 
 const getToday = () => {
   let year = new Date().getFullYear()
@@ -14,119 +20,94 @@ const getToday = () => {
 }
 
 const Container = ({ userObject }) => {
-  const uploadRef = useRef(0)
-  const [place, setPlace] = useState({
+  const history = useHistory()
+  const [spot, setSpot] = useState({
     search: "",
     options: null
   })
-  const changePlace = e => {
-    setPlace({
-      ...place,
-      [e.target.name]: e.target.value
-    })
-  }
-  const submitPlace = async e => {
-    const searchData = await SearchQuery(place.search)
-    setPlace({
-      ...place,
-      options: searchData.documents
-    })
-  }
-
   const [imgFiles, setImgFiles] = useState(null)
   const [boardWrite, setBoardWrite] = useState({
     title: "",
     desc: "",
-    date: null,
-    address: null,
+    place: "",
+    address: "",
   })
-  const changeBoard = e => {
-    setBoardWrite({
-      ...boardWrite,
-      [e.target.name] : e.target.value
-    })
-  }
-  const selectAdress = e => {
-    setBoardWrite({
-      ...boardWrite,
-      address: e.target.value
-    })
-  }
-  const changeFiles = e => {
-    const filesArr = e.target.files;
-    let fileURLs = [];
-    let file;
-    let filesLength = filesArr.length > 3 ? 3 : filesArr.length
 
-    for (let i = 0; i < filesLength; i++) {
-      file = filesArr[i];
-      let reader = new FileReader();
-      reader.onload = () => {
-        fileURLs[i] = reader.result;
-        setImgFiles([...fileURLs])
-      }
-      reader.readAsDataURL(file);
-    }
-  }
-  const eraseFile = e => {
-    const targetIdx = e.target.getAttribute('data-imgidx')
-    const filterFiles = imgFiles.filter((imgFile, idx) => {
-      return idx !== Number(targetIdx) && imgFile
-    })
-    setImgFiles(filterFiles)
-  }
   const submitBoard = async e => {
     e.preventDefault()
-    const { title, desc, address } = boardWrite
+    const { title, desc, place, address } = boardWrite
     if(title === "") return alert("제목을 확인해주세요.")
     if(desc === "") return alert("내용을 확인해주세요.")
-    if(address === null) return alert("주소를 확인해주세요.")
-
+    if(place === "" || address === "") return alert("장소와 주소를 확인해주세요.")
+    
+    let attachURLs = []
     if(imgFiles) {
-      imgFiles.forEach(async dataURL => {
-        const attachRef = fBaseStorage.ref().child(`${userObject.uid}/${uploadRef.current}/${uuidv4()}`)
-        await attachRef.putString(dataURL, "data_url")
+      imgFiles.forEach(async file => {
+        const attachRef = fBaseStorage.ref().child(`${userObject.uid}/${uuidv4()}`)
+        const res = await attachRef.putString(file, "data_url")
+        const url = await res.ref.getDownloadURL()
+        console.log(url)
+        if(url) attachURLs.push(url)
       })
     }
     
     const boardObject = {
-      boardId: `${userObject.uid}/${uploadRef.current}`,
-      createdId: userObject.uid,
+      creatorId: userObject.uid,
       createdAt: Date.now(),
       date: getToday(),
       title,
       desc,
+      place,
       address,
+      attachURLs
     }
     console.log(boardObject)
-    await fBaseDB.collection("eatingboard").add(boardObject)
-    setPlace({
-      search: "",
-      options: null
-    })
-    setBoardWrite({
-      title: "",
-      desc: "",
-      date: null,
-      address: null,
-    })
-    setImgFiles([])
-    uploadRef.current += 1
+    // await fBaseDB.collection("mapboard").add(boardObject)
+    // setSpot({
+    //   search: "",
+    //   options: null
+    // })
+    // setBoardWrite({
+    //   date: null,
+    //   title: "",
+    //   desc: "",
+    //   place: "",
+    //   address: "",
+    // })
+    // imgFiles(null)
+    // history.push("/")
   }
 
   return (
-    <Presenter 
-      place={place}
-      changePlace={changePlace}
-      submitPlace={submitPlace}
-      imgFiles={imgFiles}
-      changeFiles={changeFiles}
-      eraseFile={eraseFile}
-      boardWrite={boardWrite}
-      changeBoard={changeBoard}
-      selectAdress={selectAdress}
-      submitBoard={submitBoard}
-    />
+    <WriteStyles>
+      <WriteWrap>
+        <FontAwesomeIcon icon={faClipboard} size="3x"/>
+        <FormVertical onSubmit={submitBoard}>
+          <BoardDesc
+            boardWrite={boardWrite}
+            setBoardWrite={setBoardWrite}
+          />
+          <BoardPlace
+            spot={spot}
+            setSpot={setSpot}
+            boardWrite={boardWrite}
+            setBoardWrite={setBoardWrite}
+          />
+          <BoardImages
+            imgFiles={imgFiles}
+            setImgFiles={setImgFiles}
+          />
+          <FormSubmitBtn>
+            <button
+              type="submit"
+              onClick={submitBoard}
+            >
+              등록하기
+            </button>
+          </FormSubmitBtn>
+        </FormVertical>
+      </WriteWrap>
+    </WriteStyles>
   );
 };
 

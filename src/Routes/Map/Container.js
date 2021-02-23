@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getMapObject, getMapBoards } from 'reducers/map';
+import { getMapObject, getMapBoards } from 'modules/map';
 import { MapContStyles, MapWrapStyles } from './MapStyles';
 import MapBoards from '../../Components/MapBoards';
 import MapSearch from '../../Components/MapSearch';
 import MapView from '../../Components/MapView';
 import { kakoMapRender, placeSearchFunc } from 'Apis/kakao';
+import { fBaseDB } from 'Apis/fBase';
 
 const Container = (props) => {
-  const { map } = props
-  const { mapObject, mapBoards } = map
+  const { map, getMapObject, getMapBoards } = props
+  const { mapBoards } = map
   const [keyword, setKeyword] = useState("")
   const [keywordBoards, setKeywordBoards] = useState(null)
   
   useEffect(() => {
     const fetchKakaoMap = () => {
-      const fetchObject = kakoMapRender(37.506502, 127.053617)
-      console.log(fetchObject)
-      getMapObject(fetchObject)
-      // getMapBoards()
-      placeSearchFunc(fetchObject, "서울역")
+      const kakaoMapObject = kakoMapRender(37.506502, 127.053617)
+      getMapObject(kakaoMapObject)
+      placeSearchFunc(kakaoMapObject, "서울역")
     }
     fetchKakaoMap()
-  }, [mapObject])
+
+    fBaseDB.collection("mapboard").onSnapshot(snapshot => {
+      const boardArr = snapshot.docs.map(doc => {
+        return {
+          id: doc.id,
+          ...doc.data()
+        }
+      })
+      getMapBoards(boardArr)
+    })
+  }, [getMapObject, getMapBoards])
 
   const changeKeyword = e => setKeyword(e.target.value)
   const filterToKeyword = (e) => {
@@ -58,7 +67,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getMapBoards: () => dispatch(getMapBoards()),
+  getMapBoards: (mapBoards) => dispatch(getMapBoards(mapBoards)),
   getMapObject: (mapObject) => dispatch(getMapObject(mapObject)),
 })
 

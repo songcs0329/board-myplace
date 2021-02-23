@@ -7,7 +7,7 @@ import {
 import Auth from './Auth';
 import Map from './Map';
 import Nav from './Nav';
-import { loginUser, logoutUser } from 'reducers/user';
+import { loginUser, logoutUser } from 'modules/user';
 import { connect } from 'react-redux';
 import { fBaseAuth } from 'Apis/fBase';
 import { Loading } from 'Components/default';
@@ -28,7 +28,7 @@ const Router = (props) => {
       }
       setInit(true)
     })
-  }, [setInit, loginUser, logoutUser])
+  }, [loginUser, logoutUser])
 
   return (
     <BrowserRouter>
@@ -50,10 +50,10 @@ const Router = (props) => {
                 <Route path="/write">
                   <BoardWrite userObject={userObject} />
                 </Route>
-                <Route path="/update/:id">
+                <Route path="/update/:creatorId/:boardId">
                   <BoardWrite />
                 </Route>
-                <Route path="/boards/:id">
+                <Route path="/boards/:creatorId/:boardId">
                   <BoardDetail />
                 </Route>
               </ContentWrap>
