@@ -26,6 +26,8 @@ const Container = ({ userObject }) => {
     options: null
   })
   const [imgFiles, setImgFiles] = useState("")
+  const [imgViewer, setImgViewer] = useState("")
+  const [imgUrl, setImgUrl] = useState(null)
   const [boardWrite, setBoardWrite] = useState({
     title: "",
     desc: "",
@@ -41,9 +43,9 @@ const Container = ({ userObject }) => {
     if(place === "" || address === "") return alert("장소와 주소를 확인해주세요.")
     
     if(imgFiles !== "") {
-      imgFiles.forEach(async (file) => {
-        const attachRef = fBaseStorage.ref().child(`${userObject.uid}/${title}/${uuidv4()}`)
-        await attachRef.putString(file, "data_url")
+      imgFiles.forEach(file => {
+        const { name } = file
+        fBaseStorage.ref(`${userObject.uid}/${name}`).put(file)
       })
     }
     
@@ -51,7 +53,7 @@ const Container = ({ userObject }) => {
       creatorId: userObject.uid,
       createdAt: Date.now(),
       date: getToday(),
-      attachmentURL: `${userObject.uid}/${title}`,
+      imgUrl,
       title,
       desc,
       place,
@@ -59,19 +61,21 @@ const Container = ({ userObject }) => {
     }
     console.log(boardObject)
     await fBaseDB.collection("mapboard").add(boardObject)
-    setSpot({
-      search: "",
-      options: null
-    })
-    setBoardWrite({
-      date: null,
-      title: "",
-      desc: "",
-      place: "",
-      address: "",
-    })
-    setImgFiles("")
-    history.push("/")
+    // setSpot({
+    //   search: "",
+    //   options: null
+    // })
+    // setBoardWrite({
+    //   date: null,
+    //   title: "",
+    //   desc: "",
+    //   place: "",
+    //   address: "",
+    // })
+    // setImgFiles("")
+    // setImgUrl("")
+    // setImgViewer("")
+    // history.push("/")
   }
 
   return (
@@ -92,8 +96,11 @@ const Container = ({ userObject }) => {
             setBoardWrite={setBoardWrite}
           />
           <BoardImages
-            imgFiles={imgFiles}
+            uid={userObject.uid}
+            setImgUrl={setImgUrl}
             setImgFiles={setImgFiles}
+            imgViewer={imgViewer}
+            setImgViewer={setImgViewer}
           />
           <FormSubmitBtn>
             <button

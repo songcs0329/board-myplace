@@ -1,19 +1,25 @@
 import React from 'react';
 import { ImgFileItem, ImgFileList, ImgFilesSubmit, ImgFilesWrap } from './style';
 
-const BoardImages = ({ imgFiles, setImgFiles }) => {
+const BoardImages = ({ uid, setImgUrl, setImgFiles, imgViewer, setImgViewer }) => {
   const changeFiles = e => {
-    const filesArr = e.target.files
-    let fileURLs = [];
-    let file;
-    let filesLength = filesArr.length > 3 ? 3 : filesArr.length
+    const filesArr = Array.from(e.target.files)
+    setImgFiles(filesArr)
 
-    for (let i = 0; i < filesLength; i++) {
+    const uploadUrl = filesArr.map(file => {
+      const { name } = file
+      return `${uid}/${name}`
+    })
+    setImgUrl(uploadUrl)
+
+    let fileURLs = []
+    let file;
+    for (let i = 0; i < filesArr.length; i++) {
       file = filesArr[i];
       let reader = new FileReader();
       reader.onload = () => {
         fileURLs[i] = reader.result;
-        setImgFiles([...fileURLs])
+        setImgViewer([...fileURLs])
       }
       reader.readAsDataURL(file)
     }
@@ -23,10 +29,10 @@ const BoardImages = ({ imgFiles, setImgFiles }) => {
     const eraseIndex = e.target.getAttribute('image-index')
     const filesInput = document.getElementById("imgFiles")
     filesInput.value = null
-    const filterFiles = imgFiles.filter((file, idx) => {
-      return idx !== Number(eraseIndex) && file
+    const filterView = imgViewer.filter((viewer, idx) => {
+      return idx !== Number(eraseIndex) && viewer
     })
-    setImgFiles(filterFiles)
+    setImgViewer(filterView)
   }
 
   return (
@@ -46,13 +52,13 @@ const BoardImages = ({ imgFiles, setImgFiles }) => {
         </ImgFilesSubmit>
         <ImgFileList>
           {
-            imgFiles &&
-            imgFiles.map((imgFile, idx) => {
+            imgViewer &&
+            imgViewer.map((viewer, idx) => {
               return (
                 <ImgFileItem key={idx}>
                   <span className="img">
                     <img
-                      src={imgFile}
+                      src={viewer}
                       alt=""
                     />
                   </span>
