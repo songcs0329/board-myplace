@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
 export const MapSearchStyles = styled.div`
-div {
-  display: inline-block;
-  vertical-align: middle;
-}
+  margin-bottom: 15px;
+  div {
+    display: inline-block;
+    vertical-align: middle;
+  }
 `

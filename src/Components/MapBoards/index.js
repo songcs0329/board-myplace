@@ -1,12 +1,38 @@
 import React from 'react';
-import { MapBoardsStyles } from './MapBoardsStyles';
+import { MapBoardItem, MapBoardsList, MapBoardsStyles } from './MapBoardsStyles';
+
+
 
 const MapBoards = ({ boardsList }) => {
+
   return (
     <MapBoardsStyles>
       {
-        boardsList && 
-        boardsList.map(board => <div key={board.id}>{board.name}</div>)
+        boardsList.length > 0 && 
+        <MapBoardsList>
+          {
+            boardsList.map(board => {
+              return (
+                <MapBoardItem key={board.id}>
+                  <div className="img">
+                    <img src={board.attachmentURL} alt={board.title}/>
+                  </div>
+                  <div className="board">
+                    <strong>{board.title}</strong>
+                    <dl>
+                      <dt>{board.place}</dt>
+                      <dd>{board.address}</dd>
+                    </dl>
+                    <div className="desc">
+                      <pre>{board.desc}</pre>
+                    </div>
+                  </div>
+                </MapBoardItem>
+              )
+            })
+          }
+        </MapBoardsList>
+        
       }
     </MapBoardsStyles>
   );

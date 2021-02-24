@@ -25,7 +25,7 @@ const Container = ({ userObject }) => {
     search: "",
     options: null
   })
-  const [imgFiles, setImgFiles] = useState(null)
+  const [imgFiles, setImgFiles] = useState("")
   const [boardWrite, setBoardWrite] = useState({
     title: "",
     desc: "",
@@ -40,14 +40,10 @@ const Container = ({ userObject }) => {
     if(desc === "") return alert("내용을 확인해주세요.")
     if(place === "" || address === "") return alert("장소와 주소를 확인해주세요.")
     
-    let attachURLs = []
-    if(imgFiles) {
-      imgFiles.forEach(async file => {
-        const attachRef = fBaseStorage.ref().child(`${userObject.uid}/${uuidv4()}`)
-        const res = await attachRef.putString(file, "data_url")
-        const url = await res.ref.getDownloadURL()
-        console.log(url)
-        if(url) attachURLs.push(url)
+    if(imgFiles !== "") {
+      imgFiles.forEach(async (file) => {
+        const attachRef = fBaseStorage.ref().child(`${userObject.uid}/${title}/${uuidv4()}`)
+        await attachRef.putString(file, "data_url")
       })
     }
     
@@ -55,34 +51,36 @@ const Container = ({ userObject }) => {
       creatorId: userObject.uid,
       createdAt: Date.now(),
       date: getToday(),
+      attachmentURL: `${userObject.uid}/${title}`,
       title,
       desc,
       place,
       address,
-      attachURLs
     }
     console.log(boardObject)
-    // await fBaseDB.collection("mapboard").add(boardObject)
-    // setSpot({
-    //   search: "",
-    //   options: null
-    // })
-    // setBoardWrite({
-    //   date: null,
-    //   title: "",
-    //   desc: "",
-    //   place: "",
-    //   address: "",
-    // })
-    // imgFiles(null)
-    // history.push("/")
+    await fBaseDB.collection("mapboard").add(boardObject)
+    setSpot({
+      search: "",
+      options: null
+    })
+    setBoardWrite({
+      date: null,
+      title: "",
+      desc: "",
+      place: "",
+      address: "",
+    })
+    setImgFiles("")
+    history.push("/")
   }
 
   return (
     <WriteStyles>
       <WriteWrap>
         <FontAwesomeIcon icon={faClipboard} size="3x"/>
-        <FormVertical onSubmit={submitBoard}>
+        <FormVertical
+          onSubmit={submitBoard}
+        >
           <BoardDesc
             boardWrite={boardWrite}
             setBoardWrite={setBoardWrite}

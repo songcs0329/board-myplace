@@ -7,11 +7,12 @@ export const MapWrapStyles = styled.div`
 `
 
 export const MapContStyles = styled.div`
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   z-index: 2;
-  padding: 20px;
+  padding: 74px 20px 20px;
+  max-width: 320px;
   background-color: #fff;
 `

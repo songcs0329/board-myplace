@@ -22,7 +22,7 @@ export const getMapBoards = (mapBoards) => {
 // initialState
 export const initialState = {
   mapObject: null,
-  mapBoards: null
+  mapBoards: []
 }
 
 // reducer

@@ -19,9 +19,12 @@ const BoardImages = ({ imgFiles, setImgFiles }) => {
     }
   }
   const eraseFile = e => {
-    const targetIdx = e.target.getAttribute('data-imgidx')
+    e.preventDefault()
+    const eraseIndex = e.target.getAttribute('image-index')
+    const filesInput = document.getElementById("imgFiles")
+    filesInput.value = null
     const filterFiles = imgFiles.filter((file, idx) => {
-      return idx !== Number(targetIdx) && file
+      return idx !== Number(eraseIndex) && file
     })
     setImgFiles(filterFiles)
   }
@@ -29,7 +32,7 @@ const BoardImages = ({ imgFiles, setImgFiles }) => {
   return (
     <>
       <ImgFilesWrap>
-        <label>선택</label>
+        <label>선택 (최대 3장)</label>
         <ImgFilesSubmit>
           <input
             id="imgFiles"
@@ -53,7 +56,7 @@ const BoardImages = ({ imgFiles, setImgFiles }) => {
                       alt=""
                     />
                   </span>
-                  <button className="erase" onClick={eraseFile} data-imgidx={idx}></button>
+                  <button className="erase" onClick={eraseFile} image-index={idx}></button>
                 </ImgFileItem>
               )
             })
