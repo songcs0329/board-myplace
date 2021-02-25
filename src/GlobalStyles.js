@@ -12,6 +12,19 @@ export const GlobalStyles = createGlobalStyle`
     color: #222;
     word-break: break-all;
   }
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #fff;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(34,34,34,0.3);
+  }
+  ::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+  }
   body{
     font-family:'Noto Sans KR', 'Roboto', sans-serif;
     font-size: 14px;
@@ -49,6 +62,10 @@ export const GlobalStyles = createGlobalStyle`
   ul,
   li {
     list-style: none;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-break: break-all;
   }
   .hide {
     width: 0;

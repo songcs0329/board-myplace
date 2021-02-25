@@ -1,24 +1,26 @@
 import styled from 'styled-components';
 
 export const MapBoardsStyles = styled.div`
-  overflow: hidden;
+  overflow-x: hidden;
+  height: 90%;
+  padding: 10px;
 `
 
 export const MapBoardsList = styled.ol`
-  background-color: #ccc;
-  border: 1px solid #ccc;
+  
+  /* border: 1px solid #ccc; */
 `
 
 export const MapBoardItem = styled.li`
-  margin-top: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
   background-color: #fff;
-  &:first-child {
-    margin-top: 0;
-  }
+  box-shadow: 0 8px 10px rgba(34,34,34,0.3);
+  border-radius: 8px;
   .img {
     overflow: hidden;
     width: 100%;
-    height: 80px;
+    height: 100px;
     img {
       width: 100%;
       max-width: 100%;
@@ -35,11 +37,17 @@ export const MapBoardItem = styled.li`
       font-weight: 500;
       font-size: 20px;
     }
+    .email {
+      display: block;
+      margin: 5px 0;
+      font-size: 16px;
+    }
     .desc {
       margin-top: 15px;
       background-color: #F5dF4D;
+      border-radius: 8px;
       pre {
-        padding: 8px;
+        padding: 10px;
       }
     }
   }

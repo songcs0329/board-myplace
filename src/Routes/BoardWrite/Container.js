@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { fBaseDB, fBaseStorage } from 'Apis/fBase';
+import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import BoardDesc from '../../Components/BoardDesc'
 import BoardPlace from '../../Components/BoardPlace'
@@ -19,15 +19,24 @@ const getToday = () => {
   return `${year}-${month}-${day}`
 }
 
+const uploadImgAsync = async (user, imgFiles) => {
+  return Promise.all(imgFiles.map(async file => {
+    const path = `${user.uid}/${uuidv4()}`
+    const uploadTask = await fBaseStorage.ref(path).put(file)
+    const fileURL = await uploadTask.ref.getDownloadURL()
+    return fileURL
+  }))
+}
+
 const Container = ({ userObject }) => {
   const history = useHistory()
   const [spot, setSpot] = useState({
     search: "",
     options: null
   })
-  const [imgFiles, setImgFiles] = useState("")
-  const [imgViewer, setImgViewer] = useState("")
-  const [imgUrl, setImgUrl] = useState(null)
+  
+  const [imgFiles, setImgFiles] = useState(null)
+  const [imgViewers, setImgViewers] = useState(null)
   const [boardWrite, setBoardWrite] = useState({
     title: "",
     desc: "",
@@ -40,20 +49,15 @@ const Container = ({ userObject }) => {
     const { title, desc, place, address } = boardWrite
     if(title === "") return alert("제목을 확인해주세요.")
     if(desc === "") return alert("내용을 확인해주세요.")
-    if(place === "" || address === "") return alert("장소와 주소를 확인해주세요.")
-    
-    if(imgFiles !== "") {
-      imgFiles.forEach(file => {
-        const { name } = file
-        fBaseStorage.ref(`${userObject.uid}/${name}`).put(file)
-      })
-    }
-    
+    let uploadImgPath;
+    if(imgFiles) uploadImgPath = uploadImgAsync(userObject, imgFiles)
+    const uploadImgPathArr = await uploadImgPath
     const boardObject = {
+      email: userObject.email,
       creatorId: userObject.uid,
       createdAt: Date.now(),
       date: getToday(),
-      imgUrl,
+      uploadImgPathArr,
       title,
       desc,
       place,
@@ -61,21 +65,7 @@ const Container = ({ userObject }) => {
     }
     console.log(boardObject)
     await fBaseDB.collection("mapboard").add(boardObject)
-    // setSpot({
-    //   search: "",
-    //   options: null
-    // })
-    // setBoardWrite({
-    //   date: null,
-    //   title: "",
-    //   desc: "",
-    //   place: "",
-    //   address: "",
-    // })
-    // setImgFiles("")
-    // setImgUrl("")
-    // setImgViewer("")
-    // history.push("/")
+    history.push("/")
   }
 
   return (
@@ -96,11 +86,10 @@ const Container = ({ userObject }) => {
             setBoardWrite={setBoardWrite}
           />
           <BoardImages
-            uid={userObject.uid}
-            setImgUrl={setImgUrl}
+            imgFiles={imgFiles}
             setImgFiles={setImgFiles}
-            imgViewer={imgViewer}
-            setImgViewer={setImgViewer}
+            imgViewers={imgViewers}
+            setImgViewers={setImgViewers}
           />
           <FormSubmitBtn>
             <button

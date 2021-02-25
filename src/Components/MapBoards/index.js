@@ -1,10 +1,8 @@
 import React from 'react';
 import { MapBoardItem, MapBoardsList, MapBoardsStyles } from './MapBoardsStyles';
 
-
-
 const MapBoards = ({ boardsList }) => {
-
+  
   return (
     <MapBoardsStyles>
       {
@@ -15,10 +13,11 @@ const MapBoards = ({ boardsList }) => {
               return (
                 <MapBoardItem key={board.id}>
                   <div className="img">
-                    <img src={board.attachmentURL} alt={board.title}/>
+                    <img src={board.uploadImgPathArr[0]} alt={board.title}/>
                   </div>
                   <div className="board">
                     <strong>{board.title}</strong>
+                    <span className="email">{board.email}</span>
                     <dl>
                       <dt>{board.place}</dt>
                       <dd>{board.address}</dd>

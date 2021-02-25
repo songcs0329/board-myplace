@@ -1,38 +1,33 @@
 import React from 'react';
 import { ImgFileItem, ImgFileList, ImgFilesSubmit, ImgFilesWrap } from './style';
 
-const BoardImages = ({ uid, setImgUrl, setImgFiles, imgViewer, setImgViewer }) => {
+const BoardImages = ({ imgFiles, setImgFiles, imgViewers, setImgViewers }) => {
   const changeFiles = e => {
     const filesArr = Array.from(e.target.files)
     setImgFiles(filesArr)
-
-    const uploadUrl = filesArr.map(file => {
-      const { name } = file
-      return `${uid}/${name}`
-    })
-    setImgUrl(uploadUrl)
-
+    let filesLength = filesArr.length > 3 ? 3 : filesArr.length 
     let fileURLs = []
     let file;
-    for (let i = 0; i < filesArr.length; i++) {
+    for (let i = 0; i < filesLength; i++) {
       file = filesArr[i];
       let reader = new FileReader();
       reader.onload = () => {
         fileURLs[i] = reader.result;
-        setImgViewer([...fileURLs])
+        setImgViewers([...fileURLs])
       }
       reader.readAsDataURL(file)
     }
   }
-  const eraseFile = e => {
+
+  const filteringArr = (arr, removeIndex) => (arr.filter((view, idx) => (idx !== Number(removeIndex) && view)))
+
+  const removeFile = e => {
     e.preventDefault()
-    const eraseIndex = e.target.getAttribute('image-index')
-    const filesInput = document.getElementById("imgFiles")
-    filesInput.value = null
-    const filterView = imgViewer.filter((viewer, idx) => {
-      return idx !== Number(eraseIndex) && viewer
-    })
-    setImgViewer(filterView)
+    const targetIndex = e.target.getAttribute('image-index')
+    const viewersFilter = filteringArr(imgViewers, targetIndex)
+    const filesFilter = filteringArr(imgFiles, targetIndex)
+    setImgViewers(viewersFilter)
+    setImgFiles(filesFilter)
   }
 
   return (
@@ -52,8 +47,8 @@ const BoardImages = ({ uid, setImgUrl, setImgFiles, imgViewer, setImgViewer }) =
         </ImgFilesSubmit>
         <ImgFileList>
           {
-            imgViewer &&
-            imgViewer.map((viewer, idx) => {
+            imgViewers &&
+            imgViewers.map((viewer, idx) => {
               return (
                 <ImgFileItem key={idx}>
                   <span className="img">
@@ -62,7 +57,7 @@ const BoardImages = ({ uid, setImgUrl, setImgFiles, imgViewer, setImgViewer }) =
                       alt=""
                     />
                   </span>
-                  <button className="erase" onClick={eraseFile} image-index={idx}></button>
+                  <button className="erase" onClick={removeFile} image-index={idx}></button>
                 </ImgFileItem>
               )
             })

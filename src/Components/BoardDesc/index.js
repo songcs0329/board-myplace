@@ -27,8 +27,8 @@ const BoardDesc = ({ boardWrite, setBoardWrite }) => {
           type="text"
           name="desc"
           placeholder="내용을 입력해주세요."
-          rows="4"
-          maxLength="50"
+          rows="3"
+          maxLength="120"
           value={boardWrite.desc}
           onChange={changeBoard}
           className="formInput"
