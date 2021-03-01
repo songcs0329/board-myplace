@@ -1,7 +1,6 @@
-import { fetchKakaoMap, placeSearchFunc } from 'Apis/kakao';
-import { Loading } from 'Components/default';
+import { fetchKakaoMap } from 'Apis/kakao';
 import { getMapItem, getMapObject } from 'modules/map';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMapItemDB } from 'Utils/utils';
@@ -24,13 +23,10 @@ const Container = (props) => {
   }, [params.boardId])
 
   return (
-    <>
-      <Presenter
-        mapObject={mapObject}
-        mapItem={mapItem}
-      />
-    </>
-    
+    <Presenter
+      mapObject={mapObject}
+      mapItem={mapItem}
+    />
   );
 };
 
