@@ -14,6 +14,7 @@ import { Loading } from 'Components/default';
 import BoardWrite from './BoardWrite';
 import BoardDetail from './BoardDetail';
 import { ContentWrap } from 'GlobalStyles';
+import BoardsList from './BoardsList';
 
 const Router = (props) => {
   const [init, setInit] = useState(false)
@@ -23,7 +24,8 @@ const Router = (props) => {
     fBaseAuth.onAuthStateChanged(user => {
       if(!user) {
         logoutUser()
-      } else {
+      }
+      else {
         loginUser(user)
       }
       setInit(true)
@@ -45,15 +47,16 @@ const Router = (props) => {
               <ContentWrap>
                 <Nav userObject={userObject} />
                 <Route path={`/`} exact>
-                  <Map userObject={userObject} />
+                  {/* <Map userObject={userObject} /> */}
+                  <BoardsList />
                 </Route>
                 <Route path="/write">
                   <BoardWrite userObject={userObject} />
                 </Route>
-                <Route path="/update/:creatorId/:boardId">
+                <Route path="/update/:boardId">
                   <BoardWrite />
                 </Route>
-                <Route path="/boards/:creatorId/:boardId">
+                <Route path="/boards/:boardId">
                   <BoardDetail />
                 </Route>
               </ContentWrap>

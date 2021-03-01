@@ -70,7 +70,6 @@ export const AuthBtnList = styled.ul`
     svg {
       margin-right: 5px;
       vertical-align: middle;
-      color: #fff;
     }
   }
 `

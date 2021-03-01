@@ -1,36 +1,45 @@
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { placeSearchFunc } from 'Apis/kakao';
 import React from 'react';
-import { MapBoardItem, MapBoardsList, MapBoardsStyles } from './MapBoardsStyles';
+import { MapBoardItem, MapBoardsStyles } from './MapBoardsStyles';
 
-const MapBoards = ({ boardsList }) => {
-  
+const MapBoards = ({ mapObject, boardsList }) => {
+  const fromAddressToMap = (board) => placeSearchFunc(mapObject, board)
+
   return (
     <MapBoardsStyles>
       {
         boardsList.length > 0 && 
-        <MapBoardsList>
+        <ol>
           {
             boardsList.map(board => {
               return (
                 <MapBoardItem key={board.id}>
-                  <div className="img">
-                    <img src={board.uploadImgPathArr[0]} alt={board.title}/>
-                  </div>
-                  <div className="board">
-                    <strong>{board.title}</strong>
-                    <span className="email">{board.email}</span>
-                    <dl>
-                      <dt>{board.place}</dt>
-                      <dd>{board.address}</dd>
-                    </dl>
-                    <div className="desc">
-                      <pre>{board.desc}</pre>
+                  <button className="map_button" onClick={() => fromAddressToMap(board)}>
+                    {
+                      board.uploadImgPath &&
+                      <div className="img">
+                        <img src={board.uploadImgPath[0]} alt={board.title}/>
+                      </div>  
+                    }
+                    <div className="board">
+                      <strong>{board.title}</strong>
+                      <span className="email"><FontAwesomeIcon icon={faPen} /><br />{board.email}</span>
+                      <ul>
+                        <li>{board.place !== "" ? board.place : "장소를 알 수 없습니다."}</li>
+                        <li>{board.address !== "" ? board.address : "주소를 알 수 없습니다."}</li>
+                      </ul>
+                      <div className="desc">
+                        <pre>{board.desc}</pre>
+                      </div>
                     </div>
-                  </div>
+                  </button>
                 </MapBoardItem>
               )
             })
           }
-        </MapBoardsList>
+        </ol>
         
       }
     </MapBoardsStyles>

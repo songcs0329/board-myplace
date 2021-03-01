@@ -1,6 +1,7 @@
 // action types
 const GET_MAPOBJECT = "map/GET_MAPOBJECT"
 const GET_MAPBOARDS = "map/GET_MAPBOARDS"
+const GET_MAPITEM = "map/GET_MAPITEM"
 
 
 // action
@@ -18,11 +19,18 @@ export const getMapBoards = (mapBoards) => {
   }
 }
 
+export const getMapItem = (mapItem) => {
+  return {
+    type: GET_MAPITEM,
+    mapItem
+  }
+}
 
 // initialState
 export const initialState = {
   mapObject: null,
-  mapBoards: []
+  mapBoards: [],
+  mapItem: null
 }
 
 // reducer
@@ -38,6 +46,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         mapBoards: action.mapBoards
       }
+      case GET_MAPITEM:
+        return {
+          ...state,
+          mapItem: action.mapItem
+        }
     default:
       return state
   }

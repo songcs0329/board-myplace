@@ -67,6 +67,9 @@ export const GlobalStyles = createGlobalStyle`
     white-space: pre-wrap;
     word-break: break-all;
   }
+  * {
+    color: inherit;
+  }
   .hide {
     width: 0;
     height: 0;

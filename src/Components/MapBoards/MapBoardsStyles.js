@@ -3,20 +3,20 @@ import styled from 'styled-components';
 export const MapBoardsStyles = styled.div`
   overflow-x: hidden;
   height: 90%;
-  padding: 10px;
-`
-
-export const MapBoardsList = styled.ol`
-  
-  /* border: 1px solid #ccc; */
+  padding: 20px;
 `
 
 export const MapBoardItem = styled.li`
   overflow: hidden;
   margin-bottom: 20px;
   background-color: #fff;
-  box-shadow: 0 8px 10px rgba(34,34,34,0.3);
+  box-shadow: 0 10px 20px rgba(34,34,34,0.3);
   border-radius: 8px;
+  .map_button {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
   .img {
     overflow: hidden;
     width: 100%;
@@ -29,7 +29,6 @@ export const MapBoardItem = styled.li`
   }
   .board {
     padding: 10px;
-    border-top: 1px solid #ddd;
     * {
       line-height: 1.4;
     }
@@ -41,6 +40,14 @@ export const MapBoardItem = styled.li`
       display: block;
       margin: 5px 0;
       font-size: 16px;
+    }
+    ul {
+      
+    }
+    li {
+      margin-top: 6px;
+      padding: 4px 0;
+      border-bottom: 1px solid #ddd;
     }
     .desc {
       margin-top: 15px;

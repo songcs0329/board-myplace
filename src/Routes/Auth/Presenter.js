@@ -7,6 +7,7 @@ import { AuthWrap, AuthBtnList, AuthStyles } from './AuthStyles';
 
 const Presenter = ({ isAuth, error, userInfo, handleAuth, handleChange, handleSubmit, handleSocialClick }) => {
   const { email, password } = userInfo
+  console.log(userInfo)
   return (
     <AuthStyles>
       <AuthWrap>
