@@ -27,10 +27,16 @@ const BoardPlace = ({ spot, setSpot, boardWrite, setBoardWrite }) => {
     const target = e.target;
     const place = target.value
     const address = target.options[target.selectedIndex].getAttribute("address")
+    const lateX = target.options[target.selectedIndex].getAttribute("x")
+    const lateY = target.options[target.selectedIndex].getAttribute("y")
     setBoardWrite({
       ...boardWrite,
       place,
-      address
+      address,
+      lating: {
+        x: lateX,
+        y: lateY
+      }
     })
   }
   return (
@@ -69,6 +75,8 @@ const BoardPlace = ({ spot, setSpot, boardWrite, setBoardWrite }) => {
                       key={idx}
                       value={option.place_name}
                       address={option.address_name}
+                      x={option.x}
+                      y={option.y}
                     >
                       {option.place_name}
                     </option>

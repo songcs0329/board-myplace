@@ -79,9 +79,6 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 0;
   }
 `
-export const ContentWrap = styled.div`
-  padding-top:54px;
-`
 
 export const FormVertical = styled.form`
   width:100%;

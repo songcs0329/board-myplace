@@ -23,11 +23,12 @@ const Container = ({ userObject }) => {
     desc: "",
     place: "",
     address: "",
+    lating: null
   })
 
   const submitBoard = async e => {
     e.preventDefault()
-    const { title, desc, place, address } = boardWrite
+    const { title, desc, place, address, lating } = boardWrite
     if(title === "") return alert("제목을 확인해주세요.")
     if(desc === "") return alert("내용을 확인해주세요.")
     let uploadImgPath = "";
@@ -42,6 +43,7 @@ const Container = ({ userObject }) => {
       desc,
       place,
       address,
+      lating
     }
     console.log(boardObject)
     addCollectionDB(boardObject)

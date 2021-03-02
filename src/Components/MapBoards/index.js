@@ -1,22 +1,23 @@
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { placeSearchFunc } from 'Apis/kakao';
 import React from 'react';
+// import { placeSearchFunc } from 'Apis/kakao';
 import { MapBoardItem, MapBoardsStyles } from './MapBoardsStyles';
 
-const MapBoards = ({ mapObject, boardsList }) => {
-  const fromAddressToMap = (board) => placeSearchFunc(mapObject, board)
+const MapBoards = ({ mapBoards, fromItemToMap }) => {
+  const handleClick = (board) => {
+    fromItemToMap(board)
+    // placeSearchFunc(board)
+  }
 
   return (
     <MapBoardsStyles>
       {
-        boardsList.length > 0 && 
+        mapBoards.length > 0 && 
         <ol>
           {
-            boardsList.map(board => {
+            mapBoards.map(board => {
               return (
                 <MapBoardItem key={board.id}>
-                  <button className="map_button" onClick={() => fromAddressToMap(board)}>
+                  <button className="map_button" onClick={() => handleClick(board)}>
                     {
                       board.uploadImgPath &&
                       <div className="img">
@@ -25,14 +26,7 @@ const MapBoards = ({ mapObject, boardsList }) => {
                     }
                     <div className="board">
                       <strong>{board.title}</strong>
-                      <span className="email"><FontAwesomeIcon icon={faPen} /><br />{board.email}</span>
-                      <ul>
-                        <li>{board.place !== "" ? board.place : "장소를 알 수 없습니다."}</li>
-                        <li>{board.address !== "" ? board.address : "주소를 알 수 없습니다."}</li>
-                      </ul>
-                      <div className="desc">
-                        <pre>{board.desc}</pre>
-                      </div>
+                      <span className="email">{board.email}</span>
                     </div>
                   </button>
                 </MapBoardItem>
@@ -40,7 +34,6 @@ const MapBoards = ({ mapObject, boardsList }) => {
             })
           }
         </ol>
-        
       }
     </MapBoardsStyles>
   );

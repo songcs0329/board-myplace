@@ -12,9 +12,6 @@ import { connect } from 'react-redux';
 import { fBaseAuth } from 'Apis/fBase';
 import { Loading } from 'Components/default';
 import BoardWrite from './BoardWrite';
-import BoardDetail from './BoardDetail';
-import { ContentWrap } from 'GlobalStyles';
-import BoardsList from './BoardsList';
 
 const Router = (props) => {
   const [init, setInit] = useState(false)
@@ -44,11 +41,10 @@ const Router = (props) => {
             {
               Boolean(userObject)
               ?
-              <ContentWrap>
+              <>
                 <Nav userObject={userObject} />
                 <Route path={`/`} exact>
-                  {/* <Map userObject={userObject} /> */}
-                  <BoardsList />
+                  <Map userObject={userObject} />
                 </Route>
                 <Route path="/write">
                   <BoardWrite userObject={userObject} />
@@ -56,10 +52,7 @@ const Router = (props) => {
                 <Route path="/update/:boardId">
                   <BoardWrite />
                 </Route>
-                <Route path="/boards/:boardId">
-                  <BoardDetail />
-                </Route>
-              </ContentWrap>
+              </>
               :
               <Auth />
             }

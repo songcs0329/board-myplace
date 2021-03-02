@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 export const MapBoardsStyles = styled.div`
   overflow-x: hidden;
-  height: 90%;
-  padding: 20px;
+  height: calc(100% - 60px);
+  padding: 10px;
 `
 
 export const MapBoardItem = styled.li`
   overflow: hidden;
   margin-bottom: 20px;
   background-color: #fff;
-  box-shadow: 0 10px 20px rgba(34,34,34,0.3);
+  box-shadow: 0 5px 10px rgba(34,34,34,0.3);
   border-radius: 8px;
   .map_button {
     display: block;
@@ -39,7 +39,8 @@ export const MapBoardItem = styled.li`
     .email {
       display: block;
       margin: 5px 0;
-      font-size: 16px;
+      letter-spacing: 0;
+      font-family: "Roboto";
     }
     ul {
       

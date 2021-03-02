@@ -8,37 +8,24 @@ export const MapViewStyles = styled.div`
     height: 100%;
   }
   .marker_cont {
-    position: relative;
-    top: -50px;
-    min-width: 240px;
-    padding: 30px 15px 15px;
-    border-radius: 10px;
-    background-color: #222;
-    color: #fff;
-    > strong {
-      display: block;
-      font-weight: 500;
-      font-size: 16px;
-    }
-    > span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #222;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -20px 0 0 -20px;
+    cursor: pointer;
+    &:after {
+      content: '';
+      width: 14px;
+      height: 14px;
+      margin: 8px 0 0 8px;
+      background: #fff;
       position: absolute;
-      right: 15px;
-      top: 8px;
-      font-family: "Roboto";
-      letter-spacing: 0;
-    }
-    dl {
-      margin-top: 12px;
-      overflow: hidden;
-      dt,
-      dd {
-        float: left;
-      }
-      dt {
-        padding-right: 8px;
-        margin-right: 8px;
-        border-right: 1px solid #fff;
-      }
+      border-radius: 50%;
     }
   }
 `
