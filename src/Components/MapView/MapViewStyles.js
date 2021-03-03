@@ -27,5 +27,30 @@ export const MapViewStyles = styled.div`
       position: absolute;
       border-radius: 50%;
     }
+    &.show {
+      .inner {
+        display: block;
+      }
+    }
+    .inner {
+      display: none;
+      position: absolute;
+      left: 5px;
+      top: -5px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      padding: 8px 16px;
+      color: #fff;
+      background-color: rgba(0,0,0,0.9);
+      border-radius: 8px;
+      table {
+        width: 100%;
+      }
+      th,
+      td {
+        padding: 5px;
+        font-size: 14px;
+      }
+    }
   }
 `
