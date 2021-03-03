@@ -1,12 +1,8 @@
 import React from 'react';
-// import { placeSearchFunc } from 'Apis/kakao';
 import { MapBoardItem, MapBoardsStyles } from './MapBoardsStyles';
 
 const MapBoards = ({ mapBoards, fromItemToMap }) => {
-  const handleClick = (board) => {
-    fromItemToMap(board)
-    // placeSearchFunc(board)
-  }
+  const handleClick = (board) => fromItemToMap(board)
 
   return (
     <MapBoardsStyles>

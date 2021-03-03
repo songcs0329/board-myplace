@@ -6,12 +6,14 @@ import MapBoards from '../../Components/MapBoards';
 import MapView from '../../Components/MapView';
 import { fetchMapBoardsDB } from 'Utils/utils';
 import MapSearch from 'Components/MapSearch';
+import BoardDetail from 'Components/BoardDetail';
 
 const Container = (props) => {
   const { map, getMapBoards } = props
   const { mapBoards } = map
   const [keyword, setKeyword] = useState("")
   const [searchKeyword, setSearchKeyword] = useState([])
+  const [detailItem, setDetailItem] = useState(null)
 
   useEffect(() => {
     const fetchMapBoards = async () => {
@@ -19,7 +21,6 @@ const Container = (props) => {
       getMapBoards(fetchedDB)
     }
     fetchMapBoards()
-    
   }, [getMapBoards])
 
   const changeKeyword = (e) => setKeyword(e.target.value)
@@ -28,10 +29,7 @@ const Container = (props) => {
     const filtering = mapBoards.filter(board => board.title.indexOf(keyword) > -1 && board)
     setSearchKeyword(filtering)
   }
-
-  const fromItemToMap = (boardItem) => {
-    console.log(boardItem)
-  }
+  const fromItemToMap = (boardItem) => setDetailItem(boardItem)
 
   return (
     <MapWrapStyles>
@@ -46,6 +44,10 @@ const Container = (props) => {
           fromItemToMap={fromItemToMap}
         />
       </MapContStyles>
+      {
+        detailItem &&
+        <BoardDetail detailItem={detailItem}/>
+      }
       <MapView
         mapBoards={mapBoards}
       />

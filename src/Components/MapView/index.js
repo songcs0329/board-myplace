@@ -4,7 +4,6 @@ import { MapViewStyles } from './MapViewStyles';
 class MapView extends Component {
   map;
   mapScript = () => {
-    const { mapBoards } = this.props;
     const container = document.querySelector(".mapViewer")
     const position = new window.kakao.maps.LatLng(37.572602860810186, 126.97691639601517) // default 광화문광장
     const options = {

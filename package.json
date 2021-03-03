@@ -21,6 +21,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.32.8",
     "styled-components": "^5.2.1",
     "styled-reset": "^4.3.4",
     "swiper": "^6.4.15",
