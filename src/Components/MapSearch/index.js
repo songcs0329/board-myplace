@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormHorizontal, FormInput, FormSubmitBtn } from 'GlobalStyles';
-import { MapSearchStyles } from './MapSearchStyles';
+import { MapSearchStyles } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 

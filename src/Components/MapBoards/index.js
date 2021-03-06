@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapBoardItem, MapBoardsStyles } from './MapBoardsStyles';
+import { MapBoardItem, MapBoardsStyles } from './style';
 
 const MapBoards = ({ mapBoards, handleDetailItem }) => {
   const handleItemClick = (board) => handleDetailItem(board)

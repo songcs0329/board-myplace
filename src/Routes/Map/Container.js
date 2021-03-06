@@ -10,7 +10,7 @@ import BoardDetail from 'Components/BoardDetail';
 import { fBaseDB } from 'Apis/fBase';
 
 const Container = (props) => {
-  const { map, getMapBoards } = props
+  const { map, getMapBoards, userObject } = props
   const { mapBoards } = map
   const [keyword, setKeyword] = useState("")
   const [searchKeyword, setSearchKeyword] = useState([])
@@ -48,6 +48,7 @@ const Container = (props) => {
       {
         detailItem &&
         <BoardDetail
+          userId={userObject.uid}
           detailItem={detailItem}
           handleDetailItem={handleDetailItem}
         />
@@ -60,6 +61,7 @@ const Container = (props) => {
 };
 
 const mapStateToProps = state => ({
+  userObject: state.user.userinfo,
   map: state.map
 })
 

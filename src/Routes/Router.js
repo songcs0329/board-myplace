@@ -44,7 +44,7 @@ const Router = (props) => {
               <>
                 <Nav userObject={userObject} />
                 <Route path={`/`} exact>
-                  <Map userObject={userObject} />
+                  <Map />
                 </Route>
                 <Route path="/write">
                   <BoardWrite userObject={userObject} />

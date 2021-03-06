@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MapViewStyles } from './MapViewStyles';
+import { MapViewStyles } from './style';
 
 class MapView extends Component {
   map;
