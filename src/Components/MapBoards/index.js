@@ -1,9 +1,8 @@
 import React from 'react';
 import { MapBoardItem, MapBoardsStyles } from './MapBoardsStyles';
 
-const MapBoards = ({ mapBoards, fromItemToMap }) => {
-  const handleClick = (board) => fromItemToMap(board)
-
+const MapBoards = ({ mapBoards, handleDetailItem }) => {
+  const handleItemClick = (board) => handleDetailItem(board)
   return (
     <MapBoardsStyles>
       {
@@ -13,7 +12,7 @@ const MapBoards = ({ mapBoards, fromItemToMap }) => {
             mapBoards.map(board => {
               return (
                 <MapBoardItem key={board.id}>
-                  <button className="map_button" onClick={() => handleClick(board)}>
+                  <button className="map_button" onClick={() => handleItemClick(board)}>
                     {
                       board.uploadImgPath &&
                       <div className="img">

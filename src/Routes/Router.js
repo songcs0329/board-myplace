@@ -50,7 +50,7 @@ const Router = (props) => {
                   <BoardWrite userObject={userObject} />
                 </Route>
                 <Route path="/update/:boardId">
-                  <BoardWrite />
+                  <BoardWrite userObject={userObject} />
                 </Route>
               </>
               :

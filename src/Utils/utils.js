@@ -19,12 +19,12 @@ export const uploadImgAsync = async (user, imgFiles) => {
   }))
 }
 
-export const addCollectionDB = async (boardObject) => {
-  await fBaseDB.collection("mapboard").add(boardObject)
-}
+export const deleteImgAsync = item => item.uploadImgPath.map(async (imgPath) => await fBaseStorage.refFromURL(imgPath).delete())
 
-export const fetchMapBoardsDB = async () => {
-  const getMapBoardsDB = await fBaseDB.collection("mapboard").get()
+export const addCollectionDB = async (boardObject) => await fBaseDB.collection("mapBoards").add(boardObject)
+
+export const getMapBoardsDB = async () => {
+  const getMapBoardsDB = await fBaseDB.collection("mapBoards").get()
   const dbDocsArr = getMapBoardsDB.docs.map(doc => {
     return {
       id: doc.id,
@@ -34,8 +34,14 @@ export const fetchMapBoardsDB = async () => {
   return dbDocsArr
 }
 
-export const fetchMapItemDB = async (id) => {
-  const mapBoardsArr = await fetchMapBoardsDB()
-  const filteredItem = mapBoardsArr.find(board => board.id === id && board)
-  return filteredItem
+export const getMapItemDB = async (boardId) => {
+  const dbItem = await fBaseDB.doc(`mapBoards/${boardId}`).get()
+  return dbItem.data()
 }
+
+export const deleteMapItemDB = async (item) => {
+  await fBaseDB.doc(`mapBoards/${item.id}`).delete()
+  if(item.uploadImgPath.length > 0) deleteImgAsync(item)
+}
+
+export const updateMapItemDB = async (boardId, updateObject) => await fBaseDB.doc(`mapBoards/${boardId}`).update(updateObject)

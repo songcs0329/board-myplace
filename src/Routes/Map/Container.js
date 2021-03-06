@@ -4,9 +4,10 @@ import {getMapBoards } from 'modules/map';
 import { MapContStyles, MapWrapStyles } from './MapStyles';
 import MapBoards from '../../Components/MapBoards';
 import MapView from '../../Components/MapView';
-import { fetchMapBoardsDB } from 'Utils/utils';
+import { getMapBoardsDB } from 'Utils/utils';
 import MapSearch from 'Components/MapSearch';
 import BoardDetail from 'Components/BoardDetail';
+import { fBaseDB } from 'Apis/fBase';
 
 const Container = (props) => {
   const { map, getMapBoards } = props
@@ -17,19 +18,19 @@ const Container = (props) => {
 
   useEffect(() => {
     const fetchMapBoards = async () => {
-      const fetchedDB = await fetchMapBoardsDB()
+      const fetchedDB = await getMapBoardsDB()
       getMapBoards(fetchedDB)
     }
-    fetchMapBoards()
+    fBaseDB.collection("mapBoards").onSnapshot(() => fetchMapBoards())
   }, [getMapBoards])
 
-  const changeKeyword = (e) => setKeyword(e.target.value)
-  const filterToKeyword = (e) => {
+  const changeKeyword = e => setKeyword(e.target.value)
+  const filterToKeyword = e => {
     e.preventDefault()
-    const filtering = mapBoards.filter(board => board.title.indexOf(keyword) > -1 && board)
-    setSearchKeyword(filtering)
+    const filtered = mapBoards.filter(board => board.title.indexOf(keyword) > -1 && board)
+    setSearchKeyword(filtered)
   }
-  const fromItemToMap = (boardItem) => setDetailItem(boardItem)
+  const handleDetailItem = item => setDetailItem(item)
 
   return (
     <MapWrapStyles>
@@ -41,12 +42,15 @@ const Container = (props) => {
         />
         <MapBoards
           mapBoards={searchKeyword.length > 0 ? searchKeyword : mapBoards}
-          fromItemToMap={fromItemToMap}
+          handleDetailItem={handleDetailItem}
         />
       </MapContStyles>
       {
         detailItem &&
-        <BoardDetail detailItem={detailItem}/>
+        <BoardDetail
+          detailItem={detailItem}
+          handleDetailItem={handleDetailItem}
+        />
       }
       <MapView
         mapBoards={mapBoards}

@@ -4,6 +4,7 @@ import { MapViewStyles } from './MapViewStyles';
 class MapView extends Component {
   map;
   mapScript = () => {
+    const { mapBoards } = this.props;
     const container = document.querySelector(".mapViewer")
     const position = new window.kakao.maps.LatLng(37.572602860810186, 126.97691639601517) // default 광화문광장
     const options = {
@@ -12,8 +13,10 @@ class MapView extends Component {
     }
 
     this.map = new window.kakao.maps.Map(container, options);
-    this.setBound() // 위치값 재설정
-    this.displayMarker() // 커스텀 오버레이 그리기
+    if(mapBoards.length > 0) {
+      this.setBound() // 위치값 재설정
+      this.displayMarker() // 커스텀 오버레이 그리기
+    }
   }
   setBound = () => {
     const { mapBoards } = this.props;

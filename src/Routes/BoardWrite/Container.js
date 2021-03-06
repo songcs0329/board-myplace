@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import BoardDesc from '../../Components/BoardDesc'
 import BoardPlace from '../../Components/BoardPlace'
 import BoardImages from '../../Components/BoardImages'
-import { WriteStyles, WriteWrap } from './WriteStyles';
+import { WriteIconList, WriteStyles, WriteWrap } from './WriteStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClipboard } from '@fortawesome/free-solid-svg-icons';
-import { FormSubmitBtn, FormVertical } from 'GlobalStyles';
-import { addCollectionDB, getToday, uploadImgAsync } from 'Utils/utils';
+import { faChevronCircleLeft, faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { FormSubmitBtn, FormVertical, WarnMessage } from 'GlobalStyles';
+import { addCollectionDB, deleteImgAsync, getMapItemDB, getToday, updateMapItemDB, uploadImgAsync } from 'Utils/utils';
 
 const Container = ({ userObject }) => {
+  const { boardId } = useParams()
   const history = useHistory()
+
   const [spot, setSpot] = useState({
     search: "",
     options: null
   })
-  
   const [imgFiles, setImgFiles] = useState(null)
   const [imgViewers, setImgViewers] = useState(null)
   const [boardWrite, setBoardWrite] = useState({
@@ -26,6 +27,24 @@ const Container = ({ userObject }) => {
     lating: null
   })
 
+  useEffect(() => {
+    if(boardId) {
+      const getBoardItem = getMapItemDB(boardId)
+      getBoardItem.then((itemObject) => {
+        deleteImgAsync(itemObject)
+        const { title, desc } = itemObject
+        setBoardWrite((boardWrite) => {
+          return {
+            ...boardWrite,
+            title,
+            desc,
+          }
+        })
+      })
+    }
+  }, [boardId])
+
+  const handleGoBack = () => history.goBack()
   const submitBoard = async e => {
     e.preventDefault()
     const { title, desc, place, address, lating } = boardWrite
@@ -46,14 +65,18 @@ const Container = ({ userObject }) => {
       lating
     }
     console.log(boardObject)
-    addCollectionDB(boardObject)
-    history.push("/")
+    if(boardId) updateMapItemDB(boardId, boardObject)
+    else addCollectionDB(boardObject)
+    handleGoBack()
   }
 
   return (
     <WriteStyles>
       <WriteWrap>
-        <FontAwesomeIcon icon={faClipboard} size="3x"/>
+        <WriteIconList>
+          <li><FontAwesomeIcon icon={faChevronCircleLeft} onClick={handleGoBack}/></li>
+          <li><FontAwesomeIcon icon={faClipboard} /></li>
+        </WriteIconList>
         <FormVertical
           onSubmit={submitBoard}
         >
@@ -61,6 +84,10 @@ const Container = ({ userObject }) => {
             boardWrite={boardWrite}
             setBoardWrite={setBoardWrite}
           />
+          {
+            boardId &&
+            <WarnMessage>내용 수정 시에 기존 장소 및 이미지는 삭제됩니다.<br/>재등록 부탁드립니다.</WarnMessage>
+          }
           <BoardPlace
             spot={spot}
             setSpot={setSpot}

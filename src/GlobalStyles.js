@@ -199,3 +199,11 @@ export const LoadingPop = styled.div`
     animation: ${loadingSpin} .75s linear infinite;
   }
 `
+
+export const WarnMessage = styled.div`
+  text-align: center;
+  font-weight: 300;
+  font-size: 14px;
+  color: #ed4337;
+  line-height: 1.4;
+`
